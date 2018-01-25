@@ -1,0 +1,419 @@
+
+\documentclass[11pt,oneside]{article}
+\usepackage{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{sidecap}
+\usepackage{color}
+\usepackage{datenumber}
+\usepackage{calc}
+\usepackage{enumitem}
+\usepackage{pifont}
+
+\pagestyle{empty}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in,headheight=0in,headsep=0in,footskip=.3in}
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{0in}
+\setlength{\itemsep}{0in}
+\setlength{\topsep}{0in}
+\setlength{\tabcolsep}{0in}
+
+% Name and contact information
+\newcommand{\name}{Ryan M. Brown, MS}
+\newcommand{\addr}{3020 Todd Drive}
+\newcommand{\city}{Madison WI 53713}
+\newcommand{\phone}{(805) 279-2994}
+\newcommand{\email}{ryan.brown.analytics@gmail.com}
+\newcommand{\linkedin}{\href{http://www.linkedin.com/pub/ryan-brown/18/4a9/970}{\color{blue}My Linkedin Profile} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% New commands and environments
+
+% This defines how the name looks
+\newcommand{\bigname}[1]{
+	\begin{center}\fontfamily{phv}\selectfont\Huge\scshape#1
+	\end{center}
+}
+
+\newcommand{\formatname}[1]{
+  
+\begin{center}\fontfamily{phv}\selectfont\Huge\scshape#1\end{center}
+
+}
+
+% A ressection is a main section (<H1>Section</H1>)
+\newenvironment{ressection}[1]{
+	\vspace{4pt}
+	{\fontfamily{phv}\selectfont\Large#1}
+	\begin{itemize}[label={--}]
+	\vspace{3pt}
+}{
+	\end{itemize}
+}
+
+% A ressection is a main section (<H1>Section</H1>)
+\newenvironment{ressectionx}[1]{
+	\vspace{4pt}
+	{\fontfamily{phv}\selectfont\Large#1}
+	\begin{itemize}[label={}]
+	\vspace{3pt}
+}{
+	\end{itemize}
+}
+
+% A resitem is a simple list element in a ressection (first level)
+\newcommand{\resitem}[1]{
+	\vspace{-4pt}
+	\item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A ressubitem is a simple list element in anything but a ressection (second level)
+\newcommand{\ressubitem}[1]{
+	\vspace{-1pt}
+	\item \begin{flushleft} #1 \end{flushleft}
+}
+
+% A resbigitem is a complex list element for stuff like jobs and education:
+%  Arg 1: Name of company or university
+%  Arg 2: Location
+%  Arg 3: Title and/or date range
+\newcommand{\resbigitem}[3]{
+	\vspace{-5pt}
+	\item
+	\textbf{#1}---#2 \\
+	\textit{#3}
+}
+
+%  Arg 1: Name of company or university
+%  Arg 2: Location
+%  Arg 3: Title and/or date range
+\newcommand{\simplebigitem}[2]{
+	\vspace{-5pt}
+	\item
+	\textbf{#1} \\
+	\textit{#2}
+}
+
+% This is a list that comes with a resbigitem
+\newenvironment{ressubsec}[3]{
+	\resbigitem{#1}{#2}{#3}
+	\vspace{-2pt}
+	\begin{itemize}
+}{
+	\end{itemize}
+}
+
+% This is a list that comes with a resbigitem
+\newenvironment{simplesubsec}[2]{
+	\simplebigitem{#1}{#2}
+	\vspace{-2pt}
+	
+}{
+	
+}
+
+
+% This is a simple sublist
+\newenvironment{reslist}[1]{
+	\resitem{\textbf{#1}}
+	\vspace{-5pt}
+	\begin{itemize}
+}{
+	\end{itemize}
+}
+
+\newcounter{datetoday}
+\newcounter{diffyears}
+\newcounter{diffmonths}
+\newcounter{diffdays}
+
+\newcommand{\difftoday}[3]{%
+      \setmydatenumber{datetoday}{\the\year}{\the\month}{\the\day}%
+      \setmydatenumber{diffdays}{#1}{#2}{#3}%
+      \addtocounter{diffdays}{-\thedatetoday}%
+      \ifnum\value{diffdays}>0
+        \def\diffbefore{in }%
+        \def\diffafter{}%
+      \else
+        \def\diffbefore{}%
+        \def\diffafter{}%
+        \setcounter{diffdays}{-\value{diffdays}}%
+      \fi
+      \setcounter{diffyears}{\value{diffdays}/365}%
+      \setcounter{diffdays}{\value{diffdays}-365*\value{diffyears}}%
+      \setcounter{diffmonths}{\value{diffdays}/30}%
+      \setcounter{diffdays}{\value{diffdays}-30*\value{diffmonths}}%
+      %
+      \diffbefore
+      \ifnum\value{diffyears}=0
+      \else
+        \ifnum\value{diffyears}>1
+            \thediffyears\space years,
+        \else
+            \thediffyears\space year,
+        \fi
+      \fi
+      \ifnum\value{diffmonths}=0
+      \else
+        \ifnum\value{diffmonths}>1
+            \thediffmonths\space months
+        \else
+            \thediffmonths\space month
+        \fi
+      \fi
+      \diffafter
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Now for the actual document:
+
+\begin{document}
+
+\fontfamily{ppl} \selectfont
+
+% Name with horizontal rule
+\bigname{\name}
+
+\vspace{-8pt} \rule{\textwidth}{1pt}
+\begin{center}
+\textit{\email \hspace{8pt} \phone }
+\end{center}
+
+\begin{comment}
+ 
+\begin{minipage}{0.57\textwidth}
+\begin{flushleft} 
+\includegraphics[scale=1.1]{OCM_JavaSE6Developer_485}
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+\begin{flushright}
+\includegraphics{certification}
+\end{flushright}
+\end{minipage}
+
+\end{comment}
+
+\begin{ressection}{Synopsis}
+%\resitem{Focusing on highly scalable applications with relational and non-relational databases and middle tiers for analysis using Big Data technologies, with a focus on mathematical analysis, real-time processing, and efficiency.}
+
+%\resitem{Focusing on the architecture of computing platforms, data services, and APIs.}
+
+\resitem{Posses \difftoday{2006}{01}{01} years of software development in Java, Scala, and Python, with \difftoday{2009}{07}{10} of management and team leadership.}
+
+%\resitem{Posses \difftoday{2006}{01}{01} of success planning, monitoring, and driving the on-time and within-budget delivery of innovative technology, business, and process solutions.}
+
+\resitem{Experienced managing all phases of the software development life cycle, from initial capture of requirements through engineering, testing, delivery, and feature enhancement. }
+
+\resitem{Skilled at providing production-ready architecture and software engineering to Data Science projects for high-throughput and and Big Data systems.}
+
+
+%\resitem{Earned a Masters degree in Computer Science, a Bachelors degree in Mathematics, and several professional certifications.}
+
+\end{ressection}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressectionx}{Employment History}
+
+\begin{ressubsec}{American Family Insurance}{Madison, WI}{Lead Data Architect: August 2017--Present}
+		\ressubitem{Defining execution plans for enterprise scale deliverables of data science projects including scaling, performance testing, Docker deployment, and ongoing support.}
+	\ressubitem{Overseeing the migration of legacy Hadoop (HDFS, Hive, Pig) cluster batch processing to AWS (S3, Glue, DynamoDB,) Java microservices, batch processing, and streaming.}	
+	\end{ressubsec}
+
+
+\begin{ressubsec}{IBM}{Madison, WI}{Software Architect: May 2016--August 2017}
+		\ressubitem{Serving as Project Owner on a high-revenue initiative that disseminates worldwide historical weather analytics. Defining the scope and timeline estimates for micro-deliverables. Working with Scrum Master during bi-weekly Sprint planning.}
+		\ressubitem{Replacing under-performing Spark 1.5.2 batch-processing applications with Spark 2.1.0 / ElasticSearch microservices. Able to extracting TBs of global historic weather observations for integration with IBM Cognos and IBM Watson platforms.}	
+	\end{ressubsec}
+
+\begin{ressubsec}{Spredfast (formerly Shoutlet)}{Madison, WI}{Software Manager, Software Architect: September 2014--May 2016}
+		\ressubitem{Leading a team of software engineers and data scientists to correlate social media profile attributes with customers' marketing campaigns, contests, and promotions. This project uses Apache Cassandra, HDFS, Kafka, and Solr Cloud.}
+		%\ressubitem{Leading a team of software engineers and data scientists to correlate social media profile attributes with customers' marketing campaigns, contests, and promotions.}	
+	%\ressubitem{Implemented data ingestion system which deposits Twitter data into a queuing system (Apache Kafka) and then routes to Apache Cassandra for archive and Solr Cloud for querying.}	
+		\ressubitem{Managing 3 junior software developers. Conducted weekly one-on-ones, managed resource allocation, and project scoping. Liaised between customer support teams, software engineers, and senior management.}
+	\ressubitem{Replaced legacy PHP batch data ingestion system with Spark 1.5.2 via Spark Streaming system with HDFS and S3 storage. Established relationship with Cloudera for managing Hadoop cluster.}
+	%\ressubitem{Contributed to feature enhancement of Python microservices using Flask, NumPy, and SQLAlchemy.}
+
+		%\ressubitem{Contributing to business operations: leading junior developers, managing resource allocation, interviewing, and liaising between customer support teams, software engineers, and senior management.}	
+	\end{ressubsec}
+
+\begin{ressubsec}{XenoGen Biosystems}{Madison, WI}{Founder, CIO: August 2012--January 2015}
+	\ressubitem{Establishing beta customers, project direction, and early investment and other revenue streams, including an SBIR contract through the NIH for \$250,000.}
+	\ressubitem{Creating a Java EE data integration system that services information in numerous formats and geographically distributed worldwide. Leveraging Big Data technologies (Lucene, Pig, Hive, Tika) to build our core components.}	
+	\end{ressubsec}
+	
+
+	\begin{ressubsec}{SnowShoe Stamp}{Madison, WI}{Co-Founder, Director of Software Architecture: January 2010--July 2012}
+		%\ressubitem{Invented a patent-pending hardware device that interacts with mobile phones for hardware-driven authentication. }
+		\ressubitem{Responsible for managing the development life cycle for server-side software that provides and collects apps data. Also responsible for architecture and maintenance of centralized PostgreSQL database for all mobile data.  }
+				\ressubitem{Managed junior mobile and web developers to deliver apps to early-stage customers. Also serving as Scrum Master to establish agile practices and iterative releases. }  
+		%\ressubitem{Created parallelized multivariate analysis algorithm for the statistical analysis of consumer trend data.}
+		%\ressubitem{Created interactive Java web portal for clients to manage their mobile application content and view analytics regarding application usage.}
+		%\ressubitem{Maintaining continuous synchronization of program scope with strategic business objectives and making recommendations to modify the program to client needs or give a competative advantage.}
+		
+		%\ressubitem{Managed interns and lead development teams in creating the first sellable product and scaling to market.}
+	\end{ressubsec}
+	
+
+	\begin{ressubsec}{OpGen, Software Engineering Department}{Madison, WI}{Sr. Software Engineer: July 2008--January 2010}
+		\ressubitem{Created a multivariate heuristic in R to derive a fast microbial identification algorithm; this served as a key component in the first customer ready product.}
+		%\ressubitem{Coauthored the software browser system for all genomic sequence alignment data; this suite enables customers to run their own microbial identification and commission new biological results to a growing microbial database.}
+		%\ressubitem{Maintained project synchronization between bioinformaticists and software engineers in implementing analytical software systems. Worked with senior management to optimize the project development timeline in response to business changes.}
+	%\ressubitem{Developed high-impact BLAST-like algorithm in Java 1.6 on Linux server for ranking optical genome maps using bioanalytical map features, thereby delivering a critical component of the first customer-ready product in partnership with In-Q-Tel.}	
+	%\ressubitem{Designed data browser system for cross-departmental scientists to consolidate and manage data growth.}	
+	%\ressubitem{Served as project lead for an internal data acquisition and query tool in Java 1.5 using Hibernate, POI, and JNI.  External JNI modules were written in C++ and the application connected to a PostgreSQL database.}
+	%\ressubitem{Parallelized a complex algorithm using CUDA-C++ for protein binding site analysis via a conditional probability model.}
+	%\ressubitem{Served as project lead, architect, and key individual engineer on 4 enterprise Java 1.5 software applications involving automated statistical analysis (using R), systematic report generation (using POI), and algorithm prototyping in Matlab.}
+	%; the resulting pattern is used in initializing variables in a Kaczmarz optimization algorithm, written in C++
+	\ressubitem{Replaced under-performing software with an innovative heuristic for mining a database of biological information; the performance increase was approximately 40x.}
+
+	\end{ressubsec}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{ressubsec}{Amgen, Research Informatics Department}{Thousand Oaks, CA}{Software Engineer, Intern: June 2005--July 2008}
+		%\ressubitem{Created a data analysis pipeline that reconciles several varying schemas, leverages online APIs, and runs several innovative algorithms. This pipeline consists of modular analysis components for early stage drug efficacy. }		
+		\ressubitem{Developed an algorithm for replicate dose-response data that services 4 departments, each of approximately 40 people. The algorithm is primarily used for quick analysis in order to increase research productivity.}
+		%\ressubitem{Developed company resource management software, including analytical supply-chain management methods. Published components as web-service architecture and client application using Java Webstart.}
+		\ressubitem{Re-engineered a poorly designed legacy application from Java 1.4, EJB 1.1 session beans, and Websphere Apps Server based architecture to an EJB 2.1 Session Beans, Spring, Hibernate and JBoss Apps Server based architecture using Java 1.5 and Swing. Integrated other web services using Axis in Eclipse for better code factorization.}
+		%\ressubitem{Deployed 3-tier ''rich client'' application via Java Web Start as an interactive data acquisition tool with automated statistical analysis, and report generation. This application supported informatics teams in FDA regulated laboratories. Java frameworks used include: Hibernate, Javalution, and Maven.}
+		%\ressubitem{Pioneered category theoretical software implementations for advanced data analysis in the context of financial analysis.  Integrated Haskell modules with standard desktop applications by synchronizing COM objects with language specific structures.}
+		%\ressubitem{Served as team lead in developing domain knowledge models and architectures for high-throughput \emph{in silico} experimentation.  Conducted weekly code reviews, rapid prototyping, and iterative engineering best practices.  Documented user requirements and validated numerical routines. }		
+		
+	\end{ressubsec}
+
+
+\end{ressectionx}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{Education}
+	%\begin{simplesubsec}{University of Wisconsin--Madison }{Graduate Capstone Certificate in Bioinformatics, December 2012 (expected)}
+	%\ressubitem{}
+	%\end{simplesubsec}
+
+	
+		
+	\begin{simplesubsec}{Certificate in Executive Leadership, Cornell University}{February 2015}
+	\end{simplesubsec}
+	
+	\begin{simplesubsec}{Oracle Certified Master, Java SE 6 Developer (OCM)}{March 2011}
+	%\ressubitem{}
+	\end{simplesubsec}
+	\begin{simplesubsec}{Sun Certified Programmer for the Java Platform, Standard Edition 5.0 (SCJP)}{February 2010}
+	%\ressubitem{}
+	\end{simplesubsec}
+
+	\begin{comment}
+	\begin{ressubsec}{University of Wisconsin-Madison}{Madison, WI}{January, 2009 - August, 2009 (special guest student)}
+		\ressubitem{PhD level course on chemical reaction network theory in conjunction with Math 990 research opportunity wherein Java-based software was developed for chemical reaction graphs analysis.}
+		\ressubitem{Implemented GPU-enabled protein-DNA binding analysis application.}
+		\ressubitem{Co-developed poster entitled ``GPU-Enabled Analysis Of Protein-DNA Interfaces Using Structural Motifs'' presented at the MathBio 2 symposium at University of Wisconsin-Madison during November 2009.}
+		\ressubitem{Wrote manuscript entitled ``SNAKE Server: Prediction of DNA binding regions on protein surfaces using structural motifs'' for future publication in \emph{Nucleic Acids Research}, Web Server issue.}
+	\end{ressubsec}
+	\end{comment}
+	
+	\begin{simplesubsec}{California State University, Channel Islands---Camarillo, CA}{Master of Science in Computer Science, May 2008}
+		%\ressubitem{GPA: 3.78 }
+		%\ressubitem{Thesis: ``Modeling and Deterministic Simulation of Chemical Networks Under the Law of Mass Action'' wherein the conclusions of a publication in the \emph{Journal of Computational Chemistry} is academically examined and refuted.}
+		%\ressubitem{Advanced coursework in Neural Networks, Algorithms, Abstract Algebra, and Algebraic Geometry \& Coding Theory}
+	\end{simplesubsec}
+	
+	\begin{comment}
+	\begin{ressubsec}{California Lutheran University---Thousand Oaks, CA}{June 2006 - January 2007}
+		%\ressubitem{Project Work: databases, statistical computing, VI}
+		%\ressubitem{Coursework in Relational Calculus, Communication Systems, and Linux}
+	\end{ressubsec}
+\end{comment}	
+	
+	\begin{simplesubsec}{California Polytechnic State University---San Luis Obispo, CA}{Bachelor of Science in Mathematics, December 2005}
+  	%\ressubitem{Undergraduate Research: ``Approximate Solutions and Periodic Responses of Nonlinear Steady State Equations''}
+	%\ressubitem{Colloquium Presentation: ``Simple Search and Sort Algorithms and Efficiency''}
+	%\ressubitem{Advanced coursework in Numerical Analysis, Optimization, Maple 9 Programming}
+	%\ressubitem{Member of Math Club, Ambassadors for the College of Science and Math, and The Progressive Student Alliance}
+	\end{simplesubsec}
+
+\end{ressection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{Skills}
+
+
+\resitem{{\bf Leadership:} Proud of building teams, hiring bright people, motivating individuals, managing technical and non-technical career paths.}
+%\resitem{{\bf Management:} 7 years experience with hiring, 6 years experience with budgeting and resourcing.}
+%\resitem{{\bf Agile:} Project Owner or Scrum Master with 2 week sprints, managed in Jira.}
+
+\resitem{{\bf Languages:} Proficient in Scala 2.11, Java 1.7, 1.8, SQL, Python 3.x}
+
+\resitem{{\bf Amazon (\difftoday{2010}{06}{01}):}  AWS, S3, SQS, Elastic Map Reduce (EMR), DynamoDB.}
+\resitem{{\bf Java (\difftoday{2005}{06}{01}):}  Core Java, Spring DI, SpringBoot, JDBC, MyBatis, Hibernate).}
+\resitem{{\bf Scala (\difftoday{2014}{09}{10}):} Scala 2.10 and 2.11, Akka, Slick.}
+\resitem{{\bf NoSQL(\difftoday{2012}{011}{05}):} S3, Cassandra, SolrCloud, Elasticsearch, DynamoDB.}
+\resitem{{\bf Database:} PostgreSQL, Oracle.}
+\resitem{{\bf Big Data (\difftoday{2010}{06}{01}):} HDFS, Hive, Pig, Spark, Spark Streaming.}
+
+%\resitem{{\bf Architecture:} Hosted on EC2 with S3 and AWS running Centos6.}
+\resitem{{\bf Development Tools:}  Git, Github, Jenkins, IntelliJ.}
+\resitem{{\bf Containers:}  Docker with Docker Swarm.}
+%\resitem{{\bf Web Services:}  RESTful, XML (SOAP), RPC}
+
+
+\end{ressection}
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{ressection}{Achievements and Other Successes}
+\resitem{Co-organizer for the Madison Area Software Developers Meetup group for  \difftoday{2012}{11}{10}. Responsible for acquiring monthly sponsorship and managing funds.}
+
+\resitem{``Hiring for the Modern Stack.'' Presentation at ForwardFest. Madison, WI, August 2017.}
+
+\resitem{``Disassembling and Decompiling Scala Code.'' Presentation at Scala Days. Chicago, IL. 21 April 2017.}
+
+\resitem{``Introduction to Apache Edgent and the IBM Watson Data Platform.'' Presentation at the Big Data - Madison meetup. Madison, WI, 15 November 2016.}
+	
+
+\resitem{Moberg, C., Luedke, M., and Brown, R. SnowShoeFood. United States Patent Office. ``Tool and Method for Authenticating Transactions.'' Patent Number 9,152,279. 6 October 2015.}
+
+
+%\resitem{``Big Data Applications for Life Sciences and Energy.'' Presentation at the Madison Area Software Developers - Madison meetup. Madison, WI, 8 April 2013.}
+
+\resitem{``GPU-Enabled Analysis Of Protein-DNA Interfaces Using Structural Motifs.'' Presentation at the BioMath 2 symposium. University of Wisconsin-Madison, Madison, WI. November 2009.}
+
+\resitem{Brown, R. 2009.  Insufficiency of Chemical Network Model Integration Using a High-Order Taylor Series Method. \emph{Journal of Applied Mathematics and Computing}. 33 (2): 83-102. DOI: 10.1007/s12190-009-0275-0.}
+
+\resitem{``Modeling of Mass Action Networks and Stiffness Analysis.'' Poster presentation at the Spring Meeting of the Southern California-Nevada Section of the Mathematical Association of America. University of San Diego, San Diego, CA, March 2008.}
+	
+\resitem{``Functional Programming and the Algebra of Datatypes.'' Presentation at the Fall Meeting of the Southern California-Nevada Section of the Mathematical Association of America. Santa Ana College, Santa Ana, CA, October 2007.}
+	
+\resitem{``M-Estimates and Levenberg-Marquardt Minimization.'' Presentation at the monthly colloquium for the Statistics department, California Polytechnic State University. San Luis Obispo, CA, November 2006.}
+	
+\resitem{Brown, Ryan. 2005. ``Comparative Analysis of Fixed-Point Algorithms Applied to the Interaction of IL-1, IL-1RI, IL-1Ra and a Decoy Receptor.'' Amgen Inc. Internal manuscript.}
+\end{ressection}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{comment}
+\begin{ressection}{References}
+
+\resitem{Larry Proctor: Amgen supervisor \\
+805-447-1000 }
+
+
+%\resitem{Gilles Gnacadja: Amgen coworker, internship adviser \\
+%805-447-8461 }
+
+
+\resitem{
+  Erik Neilsen: OpGen Software Manager \\
+   608-441-8154 }
+
+\end{ressection}
+
+\end{comment}
+
+
+\end{document}
